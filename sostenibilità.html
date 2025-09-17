@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Turismo Sostenibile – Progetto IxD</title>
+  <meta name="description" content="Itinerari dinamici, scelte consapevoli e piccole ricompense per un turismo più sostenibile. Prototipi low-fi e metodo di progetto." />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&family=Crimson+Pro:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f5fa; --ink:#1f2937; --muted:#6b7280; --accent:#a06bb3;
+      --ring:#e7d6e9; --card:#ffffffcc; --glass:#ffffff80;
+      --shadow:0 20px 40px rgba(160,107,179,.18); --blur:14px;
+
+      /* accenti eco */
+      --eco-a:#8bd17c;  /* verde chiaro */
+      --eco-b:#2a8f6a;  /* verde profondo */
+      --eco-sun:#ffd56a;/* giallo sole */
+    }
+    @media (prefers-color-scheme:dark){
+      :root{
+        --bg:#0f0f12; --ink:#f3f4f6; --muted:#9ca3af; --accent:#c89ad7;
+        --ring:#3b2f40; --card:#0f0f12cc; --glass:#1b152280;
+        --shadow:0 20px 40px rgba(0,0,0,.5); --blur:16px;
+      }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{margin:0; font-family:Manrope,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif; color:var(--ink); background:var(--bg); line-height:1.6}
+    a{color:var(--accent); text-decoration:none}
+    a:hover{text-decoration:underline; opacity:.95}
+    .container{width:min(1150px,92vw); margin-inline:auto}
+    h1,h2,h3,h4{font-family:"Crimson Pro",ui-serif,Georgia,Cambria,Times,serif}
+
+    /* Navbar */
+    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(10px); background:var(--bg); border-bottom:1px solid var(--ring); z-index:50}
+    .nav{display:flex; padding:14px 0}
+    .nav-inner{
+      width:100%; display:flex; align-items:center; gap:24px; padding:8px 16px;
+      border-radius:999px; border:1px solid var(--ring);
+      background:linear-gradient(to bottom right,var(--glass),var(--card));
+      box-shadow:var(--shadow); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur));
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+  width:36px; height:36px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--accent), #f79ac2); /* fallback se l'immagine non carica */
+  background-size:cover;          /* riempie il cerchio */
+  background-position:center;     /* centra il volto */
+  border:1.5px solid var(--ring); /* anello sottile */
+  box-shadow:var(--shadow);
+}
+    .brand h1{font-size:18px; margin:0; letter-spacing:.3px; white-space:nowrap}
+    .menu{display:flex; gap:18px; align-items:center; margin-left:auto}
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--ring); border-radius:999px; background:var(--card); box-shadow:var(--shadow); font-weight:600; backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur))}
+    .btn.ghost{background:transparent}
+    .btn.primary{background:var(--accent); color:#fff; border-color:transparent}
+    .btn,.menu a{transition:transform .2s ease, box-shadow .2s ease}
+    .btn:hover,.menu a:hover{transform:scale(1.05); box-shadow:0 10px 22px rgba(0,0,0,.12)}
+
+    /* Layout */
+    section{padding:34px 0; border-top:1px solid var(--ring)}
+    .kicker{color:var(--muted); font-weight:700; letter-spacing:.18em; text-transform:uppercase; font-size:.78rem}
+    h2.title{font-size:clamp(28px,4vw,48px); line-height:1.15; margin:10px 0 14px}
+    section h3{font-size:clamp(22px,2.6vw,30px); margin:0 0 14px}
+    p.lead{color:var(--muted); margin-top:0}
+    .grid{display:grid; gap:18px}
+    .grid.cols-2{grid-template-columns:repeat(2,1fr)}
+    .grid.cols-3{grid-template-columns:repeat(3,1fr)}
+    @media(max-width:900px){.grid.cols-3{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.grid.cols-2,.grid.cols-3{grid-template-columns:1fr}}
+
+    /* Badge eco */
+    .badge-eco{
+      display:inline-flex; align-items:center; gap:10px; padding:8px 12px; border-radius:999px; font-weight:700;
+      color:#103c2d; background:linear-gradient(135deg,var(--eco-a),var(--eco-b)); border:1px solid #0001;
+      box-shadow:0 10px 24px rgba(42,143,106,.25);
+    }
+    .badge-dot{width:10px;height:10px;border-radius:999px;background:var(--eco-sun);outline:2px solid #ffffff80}
+
+    /* Card & media */
+    .card{
+      position:relative; border:1px solid var(--ring); border-radius:22px; padding:18px;
+      background:linear-gradient(145deg,var(--glass),var(--card)); box-shadow:var(--shadow);
+      display:flex; flex-direction:column; gap:12px; overflow:hidden;
+      backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur));
+      transition:transform .25s ease, box-shadow .25s ease;
+    }
+    .card:hover{transform:scale(1.02); box-shadow:0 24px 48px rgba(0,0,0,.25)}
+    .media{border-radius:18px; border:1px solid var(--ring); overflow:hidden; background:#fff; display:flex; justify-content:center; align-items:center}
+    .media img{display:block; width:85%; height:auto; margin-inline:auto; border-radius:12px}
+
+    /* Gallery */
+    .gallery{display:grid; gap:14px; grid-template-columns:repeat(3,1fr)}
+    @media (max-width:1000px){ .gallery{ grid-template-columns:repeat(2,1fr);} }
+    @media (max-width:640px){ .gallery{ grid-template-columns:1fr;} }
+    figure{margin:0}
+    figcaption{font-size:.9rem; color:var(--muted); margin-top:8px}
+
+    footer{padding:36px 0 72px; color:var(--muted); border-top:1px solid var(--ring); text-align:center}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenuto" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Salta al contenuto</a>
+
+  <!-- NAV -->
+  <header>
+    <div class="container nav">
+      <div class="nav-inner">
+        <div class="brand">
+         <div class="logo" style="background-image:url('img/foto.jpg')" role="img" aria-label="Foto di Giorgia Pellegrino"></div>
+          <h1>Giorgia Pellegrino</h1>
+        </div>
+        <nav class="menu" aria-label="Primaria">
+          <a href="portfolio.html#lavori">Torna ai Lavori</a>
+          <a href="portfolio.html#about">Chi sono</a>
+          <a href="portfolio.html#contatti">Contatti</a>
+          <button class="btn ghost print-hide" onclick="window.print()">Scarica PDF</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main id="contenuto" class="container">
+    <!-- BREADCRUMB -->
+    <nav class="breadcrumb" aria-label="Percorso" style="border-top:0; padding-top:18px">
+      <a href="portfolio.html">Home</a> › <span>Turismo sostenibile</span>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero" style="border-top:0">
+      <div class="grid cols-2" style="align-items:center">
+        <div>
+          <span class="kicker">Interaction Design · Prototipazione</span>
+          <h2 class="title">Turismo sostenibile — Itinerari intelligenti, viaggi più responsabili</h2>
+          <p class="lead">
+            Un’app che pianifica <strong>itinerari dinamici</strong> evitando aree affollate, suggerisce scelte <strong>eco-friendly</strong>
+            e premia con <strong>eco-punti</strong> chi adotta comportamenti virtuosi. L’obiettivo: ridurre l’overtourism e migliorare l’esperienza.
+          </p>
+          <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap">
+            <a class="btn primary" href="#screens">Vedi i prototipi</a>
+            <a class="btn" href="#metodo">Metodo</a>
+          </div>
+        </div>
+
+        <aside class="card" aria-label="Dettagli progetto">
+          <h4 style="margin:0">Deliverable</h4>
+          <ul style="margin:8px 0 0 18px">
+            <li>Analisi problema & competitor</li>
+            <li>Requisiti funzionali e non funzionali</li>
+            <li>User flow e modello concettuale</li>
+            <li>Prototipi <em>low-fi</em> delle viste chiave</li>
+          </ul>
+          <p class="lead" style="margin:10px 0 0; font-size:.92rem">
+            Corso: <strong>Introduzione a Interaction Design</strong>
+          </p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SEZIONE: Sfida & Soluzione in breve -->
+    <section>
+      <h3>Sfida & Soluzione</h3>
+      <div class="grid cols-3">
+        <article class="card">
+          <h4>Problema</h4>
+          <p>Il turismo di massa congestiona i luoghi, peggiora l’esperienza e impatta su comunità e ambiente.</p>
+          <ul style="margin:0 0 0 18px">
+            <li>Sovraffollamento e code</li>
+            <li>Info frammentate su trasporti/alloggi “green”</li>
+            <li>Interfacce poco accessibili</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h4>Insight</h4>
+          <p>Le persone vogliono viaggi fluidi e autentici, con indicazioni chiare per evitare stress e luoghi saturi.</p>
+          <p class="lead" style="margin:0">Ridurre attriti + suggerire alternative locali.</p>
+        </article>
+        <article class="card">
+          <h4>Proposta</h4>
+          <p>Una “guida turistica verde” che adatta il percorso in base a meteo e afflusso, premia scelte sostenibili e integra info utili in un’unica app.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- SEZIONE: Requisiti chiave -->
+    <section>
+      <h3>Requisiti chiave</h3>
+      <div class="grid cols-3">
+        <article class="card">
+          <h4>Funzionali</h4>
+          <ul style="margin:0 0 0 18px">
+            <li>Pianificazione personalizzata</li>
+            <li>Ricalcolo dinamico (meteo/affollamento)</li>
+            <li>Notifiche proattive e consigli eco</li>
+            <li>Eco-punti e premi</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h4>Non funzionali</h4>
+          <ul style="margin:0 0 0 18px">
+            <li>Usabilità e tempi rapidi</li>
+            <li>Affidabilità anche offline</li>
+            <li>Privacy e sicurezza dei dati</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h4>Accessibilità</h4>
+          <ul style="margin:0 0 0 18px">
+            <li>Contrasto e tipografia leggibili</li>
+            <li>Navigazione lineare e chiara</li>
+            <li>Testi alternativi e controlli semplici</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- SEZIONE: Metodo (come su resonance, in card) -->
+    <section id="metodo">
+      <h3>Metodo</h3>
+      <div class="grid cols-3">
+        <article class="card">
+          <h4>Ricerca</h4>
+          <p>Test di app esistenti, raccolta recensioni e <strong>questionario</strong> per capire priorità, attriti e aspettative dei viaggiatori.</p>
+          <div class="media"><img src="img_sostenibilità/grafico.png" alt="Sintesi ricerca e benchmark" loading="lazy"></div>
+        </article>
+        <article class="card">
+          <h4>Modello & Flow</h4>
+          <p>Metafora “<em>Guida Turistica Verde</em>” + <strong>user flow</strong> dei percorsi: dalla ricerca alla modifica in tempo reale.</p>
+          <img src="img_sostenibilità/personas.png" alt="User flow dell’app" loading="lazy">
+        </article>
+        <article class="card">
+          <h4>Prototipi low-fi</h4>
+          <p>Wireframe delle viste principali: Home, Ricerca, Viaggio, Account, Notifiche, Modifica itinerario.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- GALLERY -->
+    <section id="screens" aria-labelledby="h-screens">
+      <h3 id="h-screens">Prototipi – schermate principali</h3>
+      <p class="lead">Estratti dal wireframe: mappa con trasporti verdi, ricerca con vincoli, viaggio con affollamento stimato e suggerimenti alternativi.</p>
+
+      <div class="gallery" role="list">
+        <!-- Sostituisci gli src con i tuoi file reali in /img_sostenibilità/ -->
+        <figure class="card media" role="listitem">
+          <img src="img_sostenibilità/img1.jpg" alt="Home con mappa, trasporti sostenibili e monumenti vicini" loading="lazy">
+          <figcaption>Home · mappa e scelte eco</figcaption>
+        </figure>
+
+        <figure class="card media" role="listitem">
+          <img src="img_sostenibilità/img2.png" alt="Ricerca con destinazione, date, budget e preferenze" loading="lazy">
+          <figcaption>Ricerca · preferenze e vincoli</figcaption>
+        </figure>
+
+        <figure class="card media" role="listitem">
+          <img src="img_sostenibilità/img3.png" alt="Il tuo viaggio con prossima tappa e livello di affollamento" loading="lazy">
+          <figcaption>Il tuo viaggio · prossime tappe</figcaption>
+        </figure>
+
+        <figure class="card media" role="listitem">
+          <img src="img_sostenibilità/img4.png" alt="Account con eco-punti e viaggi passati" loading="lazy">
+          <figcaption>Account · eco-punti & storici</figcaption>
+        </figure>
+
+        <figure class="card media" role="listitem">
+          <img src="img_sostenibilità/img5.png" alt="Notifiche push: bici disponibili e cambio itinerario per affollamento" loading="lazy">
+          <figcaption>Notifiche · supporto proattivo</figcaption>
+        </figure>
+
+        <figure class="card media" role="listitem">
+          <img src="img_sostenibilità/img6.png" alt="Modifica itinerario con proposta alternativa" loading="lazy">
+          <figcaption>Modifica · piano alternativo</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- SEZIONE: Come funziona (in 4 step) -->
+    <section>
+      <h3>Come funziona</h3>
+      <div class="grid cols-4" style="display:grid;grid-template-columns:repeat(4,1fr);gap:18px">
+        <article class="card"><h4>1 · Imposti</h4><p>Destinazione, date, budget, preferenze (es. “evita aree affollate”).</p></article>
+        <article class="card"><h4>2 · Pianifichi</h4><p>L’app crea l’itinerario ottimizzato integrando trasporti e tappe locali.</p></article>
+        <article class="card"><h4>3 · Adatti</h4><p>Notifiche su meteo/afflusso propongono alternative intelligenti.</p></article>
+        <article class="card"><h4>4 · Guadagni</h4><p>Eco-punti per scelte sostenibili, convertibili in piccoli vantaggi.</p></article>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">© <span id="y"></span> Giorgia Pellegrino</div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

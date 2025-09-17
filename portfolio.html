@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Portfolio – Giorgia Pellegrino</title>
+  <meta name="description" content="Portfolio professionale – UX/UI · Interaction Design · Sviluppo · Marketing" />
+  <meta property="og:title" content="Portfolio – Giorgia Pellegrino" />
+  <meta property="og:description" content="Selezione lavori: sviluppo software, interaction design, marketing." />
+  <meta property="og:type" content="website" />
+  <meta name="color-scheme" content="light dark" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300..800&family=Crimson+Pro:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#f8f5fa;
+      --ink:#1f2937;
+      --muted:#6b7280;
+      --accent:#a06bb3;
+      --ring:#e7d6e9;
+      --card:#ffffffcc;
+      --glass:#ffffff80;
+      --shadow:0 20px 40px rgba(160,107,179,.18);
+      --blur:14px;
+    }
+    @media (prefers-color-scheme:dark){
+      :root{
+        --bg:#0f0f12;
+        --ink:#f3f4f6;
+        --muted:#9ca3af;
+        --accent:#c89ad7;
+        --ring:#3b2f40;
+        --card:#0f0f12cc;
+        --glass:#1b152280;
+        --shadow:0 20px 40px rgba(0,0,0,.5);
+        --blur:16px;
+      }
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; font-family:Manrope, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; 
+      color:var(--ink);
+      background-color:var(--bg); /* sfondo omogeneo */
+      line-height:1.6;
+    }
+
+    a{color:var(--accent); text-decoration:none}
+    a:hover{opacity:.95; text-decoration:underline}
+    .container{width:min(1150px, 92vw); margin-inline:auto}
+
+    /* NAVBAR — brand a sinistra, menu a destra */
+    header{position:sticky; top:0; backdrop-filter:saturate(180%) blur(10px); background:var(--bg); border-bottom:1px solid var(--ring); z-index:50}
+    .nav{display:flex; justify-content:flex-start; padding:14px 0}
+    .nav-inner{
+      width:100%;
+      display:flex; align-items:center; gap:24px;
+      padding:8px 16px;
+      border-radius:999px; border:1px solid var(--ring);
+      background:linear-gradient(to bottom right, var(--glass), var(--card));
+      box-shadow:var(--shadow); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur));
+    }
+    .brand{display:flex; gap:12px; align-items:center}
+    .logo{
+  width:36px; height:36px;
+  border-radius:50%;
+  background:linear-gradient(135deg, var(--accent), #f79ac2); /* fallback se l'immagine non carica */
+  background-size:cover;          /* riempie il cerchio */
+  background-position:center;     /* centra il volto */
+  border:1.5px solid var(--ring); /* anello sottile */
+  box-shadow:var(--shadow);
+}
+
+    .brand h1{font-size:18px; margin:0; letter-spacing:.3px; white-space:nowrap}
+    .menu{display:flex; gap:18px; align-items:center; margin-left:auto} /* spinge a destra */
+    .btn{display:inline-flex; align-items:center; gap:8px; padding:10px 14px; border:1px solid var(--ring); border-radius:999px; background:var(--card); box-shadow:var(--shadow); font-weight:600; backdrop-filter: blur(var(--blur)); -webkit-backdrop-filter: blur(var(--blur))}
+    .btn.ghost{background:transparent}
+    .btn.primary{background:var(--accent); color:white; border-color:transparent}
+
+    /* HERO */
+    .hero{padding:72px 0 24px; border-top:0}
+    .hero-grid{display:grid; grid-template-columns:1fr; gap:28px; text-align:left; justify-items:start}
+    .kicker{color:var(--muted); font-weight:700; letter-spacing:.18em; text-transform:uppercase; font-size:.78rem}
+    h2.title{font-size:clamp(28px, 4vw, 48px); line-height:1.15; margin:10px 0 14px}
+    .subtitle{font-size:1.05rem; color:var(--muted); max-width:56ch}
+
+    /* TABS */
+    .tabs{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; padding:8px; border-radius:999px; background:linear-gradient(to bottom right, var(--glass), var(--card)); border:1px solid var(--ring); box-shadow:var(--shadow); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur))}
+    .tab{padding:8px 14px; border-radius:999px; border:1px solid var(--ring); background:transparent; cursor:pointer; font-weight:700}
+    .tab.active{background:var(--accent); color:#fff; border-color:transparent}
+
+    /* SEZIONI */
+    section{padding:36px 0; border-top:1px solid var(--ring)}
+    section h3{font-size:clamp(22px, 2.6vw, 30px); margin:0 0 14px; text-align:left}
+    p.lead{text-align:left; margin-top:0; color:var(--muted)}
+
+    /* GRIGLIE */
+    .grid{display:grid; gap:18px}
+    .grid.cols-3{grid-template-columns:repeat(3, 1fr)}
+    .grid.cols-2{grid-template-columns:repeat(2, 1fr)}
+    @media (max-width:900px){.grid.cols-3{grid-template-columns:1fr 1fr}}
+    @media (max-width:640px){.grid.cols-3, .grid.cols-2{grid-template-columns:1fr}}
+
+    /* CARD */
+    .card{position:relative; border:1px solid var(--ring); border-radius:22px; padding:18px; box-shadow:var(--shadow); background:linear-gradient(145deg, var(--glass), var(--card)); backdrop-filter:blur(var(--blur)); -webkit-backdrop-filter:blur(var(--blur)); display:flex; flex-direction:column; gap:10px; overflow:hidden}
+    .card:before{content:""; position:absolute; inset:0; background:radial-gradient(120px 80px at 20% 0%, #ffffff99, transparent 60%); pointer-events:none}
+    .thumb{aspect-ratio:16/10; width:100%; border-radius:14px; overflow:hidden; background:var(--bg); border:1px dashed var(--ring); display:grid; place-items:center; color:var(--muted); font-size:.9rem}
+    .thumb img{width:100%; height:100%; object-fit:cover}
+    .tags{display:flex; flex-wrap:wrap; gap:8px}
+    .tag{font-size:.75rem; background:var(--bg); border:1px solid var(--ring); padding:4px 10px; border-radius:999px}
+    .meta{color:var(--muted); font-size:.9rem}
+
+    /* FOOTER */
+    footer{padding:36px 0 72px; color:var(--muted); border-top:1px solid var(--ring); text-align:center}
+
+    /* Tipografia */
+    h1,h2,h3,h4{font-family:"Crimson Pro", ui-serif, Georgia, Cambria, Times, serif}
+    .serif{font-family:"Crimson Pro", ui-serif, Georgia, Cambria, Times, serif}
+    .card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.card:hover {
+  transform: scale(1.03);
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.25);
+}
+.tab {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.tab:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#lavori" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">Salta al contenuto</a>
+  <header>
+    <div class="container nav">
+      <div class="nav-inner">
+        <div class="brand">
+          <div class="logo" style="background-image:url('img/foto.jpg')" role="img" aria-label="Foto di Giorgia Pellegrino"></div>
+          <h1>Giorgia Pellegrino</h1>
+        </div>
+        <nav class="menu" aria-label="Primaria">
+          <a href="#lavori">Lavori</a>
+          <a href="#about">Chi sono</a>
+          <a href="#contatti">Contatti</a>
+          <button class="btn ghost print-hide" onclick="window.print()" title="Stampa/Esporta in PDF">Scarica PDF</button>
+        </nav>
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <span class="kicker">Sviluppo software · Interaction design · Marketing</span>
+          <h2 class="title">Creo esperienze chiare, eleganti e inclusive: dall’idea al prototipo, fino all’hand-off e al codice.</h2>
+          <p class="subtitle">Portfolio professionale con una selezione di progetti accademici e personali. Prediligo un approccio <span class="serif">user-centered</span>, design system consistenti e handoff puliti verso sviluppo.</p>
+          <div style="margin-top:18px; display:flex; gap:10px; flex-wrap:wrap; justify-content:flex-start">
+            <a class="btn primary" href="#contatti">Disponibile per collaborazioni</a>
+            <a class="btn" href="#lavori">Vedi i progetti</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LAVORI -->
+    <section id="lavori">
+      <h3>Progetti selezionati</h3>
+      <p class="lead">Sfoglia per categoria: <span style="font-weight:700">Sviluppo software</span>, <span style="font-weight:700">Interaction design</span>, <span style="font-weight:700">Marketing</span>. Clicca una card per i dettagli.</p>
+
+      <div class="tabs print-hide" role="tablist" aria-label="Filtra per categoria">
+        <button class="tab active" data-filter="all" aria-selected="true">Tutti</button>
+        <button class="tab" data-filter="sviluppo">Sviluppo software</button>
+        <button class="tab" data-filter="interaction">Interaction design</button>
+        <button class="tab" data-filter="marketing">Marketing</button>
+      </div>
+
+      <div class="grid cols-3" id="cards" style="margin-top:18px">
+        <!-- 1. Resonance -->
+        <article class="card" data-cat="interaction" data-rank="1" aria-labelledby="res-title">
+  <div class="thumb"><img src="img/resonance.jpg.jpg" alt="Wireframe dell’app Resonance" loading="lazy"></div>
+  <h4 id="res-title">Resonance – App per benessere emotivo</h4>
+  <p class="meta">Figma · UX/UI · 2025</p>
+  <p>Framework di Risonanza Comportamentale e prototipo mobile etico per ansia e stress.</p>
+  <div class="tags"><span class="tag">Ricerca</span><span class="tag">Wireframe</span><span class="tag">Prototipo</span></div>
+  <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+    <a class="btn" href="resonance.html" target="_blank" rel="noopener">Vedi di più</a>
+  </div>
+</article>
+
+
+        <!-- 2. Torino Night Z -->
+        <article class="card" data-cat="interaction" data-rank="2" aria-labelledby="tnz-title">
+          <div class="thumb"><img src="img/torino.jpg" alt="Progetto UX" loading="lazy"></div>
+          <h4 id="tnz-title">Torino Night Z – Portale nightlife Gen Z</h4>
+          <p class="meta">Figma · UX Research & Prototyping · 2025</p>
+          <p>Ricerca utenti, wireframe e prototipi con mappe, liste e filtri mirati.</p>
+          <div class="tags"><span class="tag">User Research</span><span class="tag">Wireframe</span><span class="tag">Mobile-first</span></div>
+          <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+           <a class="btn" href="torinonight.html" target="_blank" rel="noopener">Vedi di più</a>
+          </div>
+        </article>
+
+        <!-- 3. App-eritivo -->
+        <article class="card" data-cat="interaction" data-rank="3" aria-labelledby="app-title">
+          <div class="thumb"> <img src="img/apperitivo.jpg" alt="Progetto Grafica Web" loading="lazy"></div>
+          <h4 id="app-title">App-eritivo – Stile guide & UI</h4>
+          <p class="meta">Figma · Visual & UI · 2025</p>
+          <p>Identità, palette arancio-aperitivo, tipografia Kanit/Work Sans, componenti e card.</p>
+          <div class="tags"><span class="tag">Design System</span><span class="tag">UI Kit</span><span class="tag">Branding</span></div>
+          <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+            <a class="btn" href="apperitivo.html" target="_blank" rel="noopener">Vedi di più</a>
+          </div>
+        </article>
+
+        <!-- 4. Web App PHP -->
+        <article class="card" data-cat="sviluppo" data-rank="4" aria-labelledby="php-title">
+          <div class="thumb"><img src="img_supporto/img1.png" alt="Sviluppo di applicazione per Supporto DSA" loading="lazy"></div>
+          <h4 id="php-title"> Supporto DSA - Web app</h4>
+          <p class="meta">PHP + HTML/CSS · 2022</p>
+          <p>Architettura semplice, componenti riutilizzabili e documentazione per il deploy.</p>
+          <div class="tags"><span class="tag">Frontend</span><span class="tag">Architettura</span><span class="tag">Documentazione</span></div>
+          <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+            <a class="btn" href="supportodsa.html" target="_blank" rel="noopener">Vedi di più</a>
+          </div>
+        </article>
+
+        <!-- 5. SMM -->
+        <article class="card" data-cat="marketing" data-rank="5" aria-labelledby="smm-title">
+          <div class="thumb"><img src="img/worldpackers.jpg" alt="Piano di comunicazione per WorldPackers" loading="lazy"></div>
+          <h4 id="smm-title">Worldpackers – FutureExchange</h4>
+          <p class="meta">Social Media Marketing · 2025</p>
+          <p>Piano di comunicazione, buyer personas, strategia social e contenuti per brand awareness.</p>
+          <div class="tags"><span class="tag">Strategia</span><span class="tag">Personas</span><span class="tag">Content</span></div>
+          <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+            <a class="btn" href="worldpackers.html" target="_blank" rel="noopener">Vedi di più</a>
+          </div>
+        </article>
+        <!-- 6. Itinerario Sostenibile (Interaction Design) -->
+<article class="card" data-cat="interaction" data-rank="6" aria-labelledby="sust-title">
+  <div class="thumb">
+    <img src="img/turismo.jpg" alt="Prototipo app per Turismo Sostenibile" loading="lazy">
+  </div>
+  <h4 id="sust-title">Itinerario Sostenibile – App per turismo responsabile</h4>
+  <p class="meta">Interaction Design · Ricerca + Wireframe · 2024</p>
+  <p>
+    Soluzione mobile per pianificare itinerari dinamici e sostenibili, con suggerimenti di mete meno affollate,
+    ricalcolo su meteo/affollamento e premi “eco” per comportamenti responsabili.
+  </p>
+  <div class="tags">
+    <span class="tag">User Research</span>
+    <span class="tag">User Flow</span>
+    <span class="tag">Wireframe</span>
+  </div>
+  <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+    <a class="btn" href="sostenibilità.html" target="_blank" rel="noopener">Vedi di più</a>
+  </div>
+</article>
+
+<!-- 7. CulturaLive – Ticketing eventi (Sviluppo) -->
+<article class="card" data-cat="sviluppo" data-rank="7" aria-labelledby="tick-title">
+  <div class="thumb">
+     <img src="img_ticketing/img1.png" alt="Ticketing – schermata della web app" loading="lazy" />
+  </div>
+  <h4 id="tick-title">CulturaLive – Ticketing eventi (PHP/MySQL)</h4>
+  <p class="meta">PHP + MySQL · Frontend & Backend</p>
+  <p>
+    Piattaforma di ticketing con autenticazione, categorie evento (concerti, sport, teatro, mostre) e pagine dedicate.
+    Include connessione al DB e viste per navigazione e acquisto.
+  </p>
+  <div class="tags">
+    <span class="tag">Full-stack</span>
+    <span class="tag">PHP</span>
+    <span class="tag">MySQL</span>
+  </div>
+  <div style="display:flex; gap:10px; margin-top:8px; flex-wrap:wrap; justify-content:flex-start">
+     <a class="btn" href="ticketing.html" target="_blank" rel="noopener">Vedi di più</a>
+  </div>
+</article>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+   <section id="about">
+  <h3>Chi sono</h3>
+  <div class="grid cols-2" style="align-items:start">
+    <div>
+      <p class="lead">
+        Sono <strong>Giorgia Pellegrino</strong>, neolaureata con formazione in comunicazione e ICT.  
+        Mi appassiona progettare <strong>esperienze digitali inclusive</strong>, dove
+        estetica e funzionalità si incontrano per rendere la tecnologia chiara e
+        accessibile a tutti.  
+        Nel mio lavoro unisco <strong>ricerca, prototipazione e sviluppo front-end</strong>,
+        mantenendo sempre al centro i bisogni delle persone.
+      </p>
+    </div>
+    <aside class="card">
+      <p style="margin:0">Scarica il CV aggiornato in PDF.</p>
+      <a class="btn" href="Giorgia Pellegrino - Curriculum vitae (versione italiana).pdf" download>Scarica CV</a>
+    </aside>
+  </div>
+</section>
+
+
+    <!-- CONTATTI -->
+    <section id="contatti">
+      <h3>Contatti</h3>
+      <div class="grid cols-4">
+        <div class="card">
+          <p> <strong> Email: </strong> giorgiappellegrino@email.com</p>
+        <p> <strong> Numero di telefono: </strong> 3703163650 </p>
+             <p> <strong>LinkedIn:</strong> <a href="#"> https://www.linkedin.com/in/giorgia-pellegrino-3139b8250?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app</a></p>
+          <p>Disponibile per stage, collaborazioni freelance e posizioni junior.</p>
+        </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      © <span id="y"></span> Giorgia Pellegrino · Tutti i diritti riservati
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    // Tabs filter + ordinamento per importanza
+    const tabs = document.querySelectorAll('.tab');
+    const cards = document.querySelectorAll('#cards .card');
+    tabs.forEach(t=>t.addEventListener('click',()=>{
+      tabs.forEach(x=>x.classList.remove('active'));
+      t.classList.add('active');
+      const f = t.dataset.filter;
+      cards.forEach(c=>{
+        c.style.display = (f==='all' || c.dataset.cat===f) ? '' : 'none';
+      });
+      const grid = document.getElementById('cards');
+      const visible = Array.from(cards).filter(c=>c.style.display!=='none');
+      visible.sort((a,b)=> Number(a.dataset.rank) - Number(b.dataset.rank));
+      visible.forEach(c=>grid.appendChild(c));
+    }));
+  </script>
+</body>
+</html>
